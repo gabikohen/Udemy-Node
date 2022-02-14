@@ -1,8 +1,12 @@
-require("colors");
 
 
+require('dotenv').config()
 const { inquererMenu, leerInput, pausa } = require("./helpers/inquerer");
 const Busquedas = require("./models/busquedas");
+
+// Viriables de entorno
+console.log(process.env.MAPBOX_KEY)
+
 
 const main = async () => {
   const busquedas = new Busquedas();
@@ -17,8 +21,9 @@ const main = async () => {
       case 1:
         // Mostrar mensaje
 
-        const lugar = await leerInput('Ciudad:')
-       await busquedas.ciudad(lugar)
+        const termino = await leerInput('Ciudad:')
+      const lugares =  await busquedas.ciudad(termino)
+      console.log(lugares)
         // Buscar el lugar
         // Selectcionar el lugar
 
@@ -44,4 +49,5 @@ const main = async () => {
   } while (opt !== 0);
 };
 
-main();
+ main();
+ 

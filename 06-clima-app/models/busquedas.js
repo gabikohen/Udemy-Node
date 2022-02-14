@@ -7,26 +7,35 @@ class Busquedas {
     //Leer DB si existe
   }
 
-  get paramsMapBox() {
+  get MapboxClient() {
     return {
-      "acces_token":
-        "pk.eyJ1IjoiZ2FpYmtvaGVuIiwiYSI6ImNremZ0ZG5rZjBpY3Eyd216ZmoxaDNxMDYifQ.UOI1RQ0quRO-okZ6C65WLg",
+      "acces_token":process.env.MAPBOX_KEY ,
      " limit": 5,
       "language": "es",
     };
   }
 
-  async ciudad(lugar = "") {
+  async ciudad(termino = "") {
     // Peticiones Http
     try {
       const intance = axios.create({
-        baseURL: `https://api.mapbox.com/geocoding/v5/mapbox.places/${lugar}.json`,
-        params: this.paramsMapBox,
+        baseURL: `https://api.mapbox.com/geocoding/v5/mapbox.places/${termino}.json`,
+     
+        params: this.MapboxClient,
       });
       const resp = await intance.get();
+      const place=resp.data.features;
 
-      console.log(resp.data);
-      return []; 
+        return place.map(lugar =>({
+
+       id:lugar.id,
+       nombre:lugar.place_name,
+       lng:lugar.center[0], 
+       lat:lugar.center[1],
+       
+      }));
+      
+    
     } catch (error) {
       return []; // retornar las ciudades que coincidad con
     }
