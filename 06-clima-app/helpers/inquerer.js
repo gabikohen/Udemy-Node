@@ -73,10 +73,10 @@ const leerInput = async (message) => {
 
 const listadoTareasBorrar = async (tareas = []) => {
   const choices = tareas.map((tarea, i) => {
-    const idx = `${i + 1}`.green;
+    const idx = `${i + 1}.`.green;
     return {
-      value: "tarea.id",
-      name: `${idx} ${tarea.desc}`,
+      value: lugar.id,
+      name: `${idx} ${lugar.nombre}`,
     };
   });
 
@@ -89,17 +89,14 @@ const listadoTareasBorrar = async (tareas = []) => {
     {
       type: "list",
       name: "id",
-      message: "Borrar",
+      message: "Seleccione un lugar",
       choices,
     },
   ];
 
   const { id } = await inquirer.prompt(preguntas);
   return id;
-  /*   {
-    value: "tarea.id",
-    name: `${'1'.red}.Crear Tarea`,
-  }, */
+  
 };
 
 const confirmar = async (message) => {
@@ -117,11 +114,11 @@ const confirmar = async (message) => {
 
 const mostrarladoChecklist = async (tareas = []) => {
   const choices = tareas.map((tarea, i) => {
-    const idx = `${i + 1}`.green;
+    const idx = `${ i + 1 }.`.green;
     return {
       value: "tarea.id",
-      name: `${idx} ${tarea.desc}`,
-      checked:(tarea.completadaEn) ? true : false
+      name: `${ idx } ${ tarea.desc }`,
+      checked:( tarea.completadaEn ) ? true : false
     };
   });
 
