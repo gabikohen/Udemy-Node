@@ -30,7 +30,7 @@ const preguntas = [
 ];
 
 const inquererMenu = async () => {
-  /* console.clear(); */
+   console.clear();
   console.log("=======================".red);
   console.log("Seleccione una opcion".blue);
   console.log("=======================\n".white);
@@ -71,8 +71,8 @@ const leerInput = async (message) => {
   return desc;
 };
 
-const listadoTareasBorrar = async (tareas = []) => {
-  const choices = tareas.map((tarea, i) => {
+const listarLugar = async (lugares = []) => {
+  const choices = lugares.map((lugar, i) => {
     const idx = `${i + 1}.`.green;
     return {
       value: lugar.id,
@@ -116,7 +116,7 @@ const mostrarladoChecklist = async (tareas = []) => {
   const choices = tareas.map((tarea, i) => {
     const idx = `${ i + 1 }.`.green;
     return {
-      value: "tarea.id",
+      value: tarea.id,
       name: `${ idx } ${ tarea.desc }`,
       checked:( tarea.completadaEn ) ? true : false
     };
@@ -127,7 +127,7 @@ const mostrarladoChecklist = async (tareas = []) => {
     {
       type: "checkbox",
       name: "ids",
-      message: "Seleccione",
+      message: "Seleccione lugar :",
       choices,
     },
   ];
@@ -140,6 +140,6 @@ module.exports = {
   inquererMenu,
   pausa,
   leerInput,
-  listadoTareasBorrar,
+  listarLugar,
   confirmar,mostrarladoChecklist
 };
