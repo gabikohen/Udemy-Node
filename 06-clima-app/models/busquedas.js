@@ -5,24 +5,26 @@ class Busquedas {
   historial = [];
   dbPath = './db/database.json'
   
-/*   constructor() {
+  constructor() {
     this.leerDB();
-  } */
+  } 
 
   get  paramsMapbox() {
     return {
-      "acces_token": process.env.MAPBOX_KEY ,
-     " limit": 5,
-      "language": "es",
+      acces_token: process.env.MAPBOX_KEY ,
+     limit: 5,
+      language: "es",
     };
   }
+
+
 
  /* ?lat={lat}&lon={lon}&appid={API key} */
  get paramsWether() {
    return {
-     "lat":"",
-     "long":"",
-      "appid":"",
+    appid: process.env.OPENWEATHER_KEY,
+    units: 'metric',
+    lang: 'es'
 
    }
  }
@@ -32,7 +34,6 @@ class Busquedas {
     try {
       const intance = axios.create({
         baseURL: `https://api.mapbox.com/geocoding/v5/mapbox.places/${ lugar }.json`,
-     
         params:this.paramsMapbox,
       });
       const resp = await intance.get();
@@ -57,17 +58,16 @@ class Busquedas {
       
       const instancia  = axios.create({
         BaseURL2 = `api.openweathermap.org/data/2.5/${weather}.json`,
-        params:this.paramsWether
+        params:{...this.paramsWether,lat,lon}
       })
       const resp = await instancia.get();
-      return resp.data.features.map(temp =>({
-    
-       
-        desc:'Algo de nubes',
-        min:"",
-        max:"",
-        temp:""
-      }));
+      const { weather, main } = resp.data;
+      return {
+        desc: weather[0].description,
+        min: main.temp_min,
+        max: main.temp_max,
+        temp: main.temp
+    }
       
     } catch (error) {
       console.log(error)
