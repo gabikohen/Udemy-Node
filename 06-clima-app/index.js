@@ -2,8 +2,8 @@ require("dotenv").config();
 const { inquererMenu, leerInput, pausa, listarLugar } = require("./helpers/inquerer");
 const Busquedas = require("./models/busquedas");
 
-// Viriables de entorno
-/* console.log(process.env.MAPBOX_KEY); */
+// Variables de entorno
+ console.log(process.env.MAPBOX_KEY); 
 
 const main = async () => {
   const busquedas = new Busquedas();
@@ -26,25 +26,35 @@ const main = async () => {
 
         // Seleccionar el lugar
         const id = await  listarLugar(lugares)
+
+      if(id === '0') continue;
+
+
+     
        const lugarSel = lugares.find( l => l.id === id)
-        //clima
-      /* const clima = await busquedas.climaLugar() */
+        // Guardar en DB
+      busquedas.agregarHistorial(lugarSel.nombre) 
+       
+       //clima
+       const clima = await busquedas.climaLugar(lugarSel.lat,lugar.lng);
+       console.log(clima);
         //resultado
 
-        // Mostrar resultados
-        console.clear();
-        console.log("\nInformación de la ciudad\n".green);
-        console.log('Ciudad:', lugarSel.nombre.green );
-        console.log('Lat:', lugarSel.lat );
-        console.log('Lng:', lugarSel.lng );
-        console.log("Temperatura:",);
-        console.log("Mínima:",);
-        console.log("Máxima:",);
-        console.log("Como está el clima:",);
-        break;
+         // Mostrar resultados
+         console.clear();
+         console.log('\nInformación de la ciudad\n'.green);
+         console.log('Ciudad:', lugarSel.nombre.green );
+         console.log('Lat:', lugarSel.lat );
+         console.log('Lng:', lugarSel.lng );
+         console.log('Temperatura:', clima.temp );
+         console.log('Mínima:', clima.min );
+         console.log('Máxima:', clima.max );
+         console.log('Como está el clima:',  clima.desc.green );
+
+     break;
 
       case 2:
-        busquedas.historialCapitalizado.forEach((lugar, i) => {
+        busquedas.historial.forEach((lugar, i) => {
           const idx = `${i + 1}.`.green;
           console.log(`${idx} ${lugar} `);
         });

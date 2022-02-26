@@ -6,8 +6,8 @@ class Busquedas {
   dbPath = './db/database.json'
   
   constructor() {
-    this.leerDB();
-  } 
+   
+  }  
 
   get  paramsMapbox() {
     return {
@@ -57,7 +57,7 @@ class Busquedas {
     try {
       
       const instancia  = axios.create({
-        BaseURL2 = `api.openweathermap.org/data/2.5/${weather}.json`,
+        BaseURL2 :`https://api.openweathermap.org/data/2.5/weather`,
         params:{...this.paramsWether,lat,lon}
       })
       const resp = await instancia.get();
@@ -72,6 +72,30 @@ class Busquedas {
     } catch (error) {
       console.log(error)
     }
+
+    
+  }
+
+  agregarHistorial(lugar = ''){
+
+
+    if(this.historial.includes(lugar.toLocaleLowerCase())){
+      return
+    }
+      this.historial.unshift(lugar.toLocaleLowerCase());
+ this.guardarDB();
+  }
+  guardarDB(){
+
+    const payload = {
+      historial=this.historial
+    }
+
+ fs.writeFileSync(this.dbPath,JSON.stringify(payload))
+
+  }
+  leerDB(){
+
   }
 }
 
