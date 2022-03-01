@@ -1,0 +1,83 @@
+<div class="main">
+  <h1 id="title">freeCodeCamp Survey Form</h1>
+  <p id="description">
+    Thank you for taking the time to help us improve the platform
+  </p>
+  <div class="main-content">
+    <div class="form-content">
+      <form id="survey-form">
+        <label for="name-label">
+          Name
+          <input id="name" required type="text" placeholder="Enter your Name" />
+        </label>
+
+        <label for="email-label">
+          Email
+          <input
+            id="email"
+            required
+            type="email"
+            placeholder="Enter your Email"
+          />
+        </label>
+
+        <label for="number-label">
+          Number
+          <input
+            id="number"
+            required
+            type="number"
+            placeholder="Number"
+            min="1"
+            max="20"
+          />
+        </label>
+
+        <lebel for="dropdown"
+          >Which option best describes your current role? </lebel>
+
+          <select id="dropdown">
+            <option value="trainee">trainee</option>
+            <option value="junior">Junior</option>
+            <option value="semi-senior">Semi-Senior</option>
+            <option value="senior">Senior</option>
+          </select>
+       
+        <div>
+          <fieldset>
+              <legend>What option would you like to apply</legend>
+            <div>
+              <input type="radio" id="full-stack" name="radio" value="full-stack" checked />
+              <label for="full-stack">Full-Stack</label>
+            </div>
+            <div>
+                <input type="radio" id="Back-end" name="radio" value="Back-end" checked />
+                <label for="Back-end">Back-End</label>
+              </div>
+              <div>
+                <input type="radio" id="front-end" name="radio" value="front-end" checked />
+                <label for="front-end">Front-End</label>
+              </div>
+          </fieldset>
+        </div>
+        <p 
+          >What would you like to improve?</p>
+          <input type="checkbox">
+          <label for="logic">Logic</label>
+          <input type="checkbox">
+          <label for="design">Design</label>
+          <input type="checkbox">
+          <label for="fasting">Fasting</label>
+          
+          
+          <textarea id="w3review" name="textarea" rows="4" cols="10">
+ 
+        </textarea>
+        
+       
+        <button id="submit">Submit</button>
+      </form>
+
+    </div>
+  </div>
+</div>
