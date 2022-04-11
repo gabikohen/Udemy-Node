@@ -16,7 +16,7 @@ const usersControllers = require("../controllers/usersControllers");
 //Rutas 
 router.get("/", usersControllers.getAll);
 
-router.post( "/",validateForm,validateCampo,usersControllers.createAll);
+router.post( "/",validateCampo,validateForm,usersControllers.createAll);
 
 router.put("/:id", usersControllers.editAll);
 

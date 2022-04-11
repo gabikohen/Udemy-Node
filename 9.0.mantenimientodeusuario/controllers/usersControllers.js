@@ -14,21 +14,11 @@ const usersControllers = {
   },
 
   createAll: async (req, res = response) => {
-    
-    
+
     const { nombre, email, password, rol } = req.body;
     const usuario = new Usuario({ nombre, email, password, rol });
     
    
-   
-
-
-   const existeEmail = await Usuario.findOne({email});
-   if(existeEmail) {
-     return res.status(400).json({
-       message:'El correo ya esta registrado'
-     })
-   }
 
  // Encriptar la contraseña
     const salt = bcryptjs.genSaltSync();
@@ -40,8 +30,21 @@ const usersControllers = {
     });
   },
 
-  editAll: (req, res = response) => {
+  // EDITAR TODOS 
+
+  editAll:async (req, res = response) => {
     const id = req.params.id;
+    const {password,google,email,...resto} = req.body
+  
+    // Validar contra basedatos
+
+    if(password) {
+      const salt = bcryptjs.genSaltSync();
+      resto.password = bcryptjs.hashSync(password, salt);
+    }
+
+    const usuario  = await Usuario.findByIdAndUpdate(id,resto)
+
     res.status(200).json({
       msg: " edit API controlador",
       id,
