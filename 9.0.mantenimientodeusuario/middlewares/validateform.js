@@ -8,6 +8,7 @@ const {rolValido,validarEmail} = require('../helpers/db-validator')
 
 
 const validarForm = [
+ 
   body("nombre")
     .notEmpty()
     .withMessage("Debe Completar el campo con un Nombre")

@@ -13,28 +13,27 @@ const usersControllers = {
     });
   },
 
-  createAll: async (req, res = response) => {
+   createAll: async (req, res = response) => {
 
     const { nombre, email, password, rol } = req.body;
     const usuario = new Usuario({ nombre, email, password, rol });
     
    
-
  // Encriptar la contraseña
     const salt = bcryptjs.genSaltSync();
     usuario.password = bcryptjs.hashSync(password, salt);
-
+ 
     await usuario.save();
     res.status(200).json({
       usuario,
     });
-  },
+  }, 
 
   // EDITAR TODOS 
 
   editAll:async (req, res = response) => {
     const id = req.params.id;
-    const {password,google,email,...resto} = req.body
+    const {_id,password,google,email,...resto} = req.body
   
     // Validar contra basedatos
 
@@ -47,7 +46,7 @@ const usersControllers = {
 
     res.status(200).json({
       msg: " edit API controlador",
-      id,
+      id,usuario
     });
   },
 
