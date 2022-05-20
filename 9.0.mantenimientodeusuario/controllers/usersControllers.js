@@ -1,64 +1,55 @@
 const { response, request } = require("express");
 const bcryptjs = require("bcryptjs");
 const Usuario = require("../models/usuario");
+const { Promise } = require("mongoose");
 
 const usersControllers = {
   getAll: async (req = request, res = response) => {
     const { limit = 5, desde = 0 } = req.query;
-    
-    const query = {estado:true};
+
+    /* Promesas separadas */
+    /*
     
     const todosUser = await Usuario.find(query)
       .skip(Number(desde))
       .limit(Number(limit));
 
-    const total = await Usuario.count(query);
+    const total = await Usuario.countDocuments(query);
+ */
+
+    const query = { state: true };
+    /* Promise colection */
+    const [total, todosUser] = await Promise.all([
+      Usuario.countDocuments(query),
+      Usuario.find(query).skip(Number(desde)).limit(Number(limit)),
+    ]);
 
     res.status(200).json({
-      todosUser,total
+      total,
+      todosUser,
     });
   },
 
-<<<<<<< HEAD
-   createAll: async (req, res = response) => {
-
-    const { nombre, email, password, rol } = req.body;
-    const usuario = new Usuario({ nombre, email, password, rol });
-    
-   
- // Encriptar la contraseña
-=======
   createAll: async (req, res = response) => {
     const { nombre, email, password, rol } = req.body;
     const usuario = new Usuario({ nombre, email, password, rol });
 
     // Encriptar la contraseña
->>>>>>> 52efd0e9a09f3dac8068865b4f85b23742edf785
     const salt = bcryptjs.genSaltSync();
     usuario.password = bcryptjs.hashSync(password, salt);
- 
+
     await usuario.save();
-<<<<<<< HEAD
     res.status(200).json({
       usuario,
     });
-  }, 
-=======
-    res.status(200).json(usuario);
   },
->>>>>>> 52efd0e9a09f3dac8068865b4f85b23742edf785
 
   // EDITAR TODOS
 
   editAll: async (req, res = response) => {
     const id = req.params.id;
-<<<<<<< HEAD
-    const {_id,password,google,email,...resto} = req.body
-  
-=======
     const { _id, password, google, email, ...resto } = req.body;
 
->>>>>>> 52efd0e9a09f3dac8068865b4f85b23742edf785
     // Validar contra basedatos
 
     if (password) {
@@ -69,12 +60,9 @@ const usersControllers = {
     const usuario = await Usuario.findByIdAndUpdate(id, resto);
 
     res.status(200).json({
-<<<<<<< HEAD
       msg: " edit API controlador",
-      id,usuario
-=======
+      id,
       usuario,
->>>>>>> 52efd0e9a09f3dac8068865b4f85b23742edf785
     });
   },
 
@@ -84,10 +72,15 @@ const usersControllers = {
     });
   },
 
-  deleteAll: (req, res = response) => {
-    res.status(200).json({
-      msg: " deleted API controlador",
-    });
+  deleteAll: async (req, res = response) => {
+    const { id } = req.params;
+
+    /* Fisicamente se Borra  */
+
+    /* const user = await Usuario.findByIdAndDelete(id); */
+    const user = await Usuario.findByIdAndUpdate(id, { state: false });
+
+    res.status(200).json(user);
   },
 };
 
