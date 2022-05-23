@@ -3,7 +3,7 @@
 const { check } = require("express-validator");
 
 // Importaciones de para validar campos 
-const {rolValido,validarEmail} = require('../helpers/db-validator')
+const {esRolValido,validarEmail} = require('../helpers/db-validator')
 
 
 
@@ -22,7 +22,7 @@ const validarForm = [
     .notEmpty()
     .isLength({ min: 5 })
     .withMessage("must be at least 5 chars long"),
-  check("rol").custom(rolValido)
+  check("rol").custom(esRolValido)
 ];
 
 module.exports = validarForm;

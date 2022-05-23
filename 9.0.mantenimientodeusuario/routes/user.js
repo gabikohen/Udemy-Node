@@ -14,12 +14,12 @@ const validateID = require('../middlewares/validatorID');
 //Rutas
 router.get("/", usersControllers.getAll);
 
-router.post("/",  validateCampo,validateForm, usersControllers.createAll);
+router.post("/",validateForm,validateCampo, usersControllers.createAll);
 
 router.put("/:id",validateID,validateCampo, usersControllers.editAll);
 
 router.patch("/", usersControllers.editFew);
 
-router.delete("/:id",validateCampo,validateID, usersControllers.deleteAll);
+router.delete("/:id",validateID,validateCampo, usersControllers.deleteAll);
 
 module.exports = router;
