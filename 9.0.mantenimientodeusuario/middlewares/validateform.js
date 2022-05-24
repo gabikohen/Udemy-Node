@@ -1,6 +1,6 @@
 
 // Validaciones
-const { check } = require("express-validator");
+const  {body  }= require('express-validator')
 
 // Importaciones de para validar campos 
 const {esRolValido,validarEmail} = require('../helpers/db-validator')
@@ -9,20 +9,20 @@ const {esRolValido,validarEmail} = require('../helpers/db-validator')
 
 const validarForm = [
  
-  check("nombre")
+  body("nombre")
     .notEmpty()
     .withMessage("Debe Completar el campo con un Nombre")
     .isLength({ min: 2 }),
-    check("email")
+    body("email")
     .isEmail()
     .notEmpty()
     .withMessage("Debe Completar el campo con un Email"),
-    check("email").custom(validarEmail),
-    check("password")
+    body("email").custom(validarEmail),
+    body("password")
     .notEmpty()
     .isLength({ min: 5 })
     .withMessage("must be at least 5 chars long"),
-  check("rol").custom(esRolValido)
+  body("rol").custom(esRolValido)
 ];
 
 module.exports = validarForm;
