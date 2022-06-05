@@ -11,6 +11,8 @@ const validateForm = require("../middlewares/validateform");
 
 const validateID = require('../middlewares/validatorID');
 
+const validacionJWT = require('../middlewares/validar-jwt');
+
 //Rutas
 router.get("/", usersControllers.getAll);
 
@@ -20,6 +22,6 @@ router.put("/:id",validateID,validateCampo, usersControllers.editAll);
 
 router.patch("/", usersControllers.editFew);
 
-router.delete("/:id",validateID,validateCampo, usersControllers.deleteAll);
+router.delete("/:id",validacionJWT,validateID,validateCampo, usersControllers.deleteAll);
 
 module.exports = router;
