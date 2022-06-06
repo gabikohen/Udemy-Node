@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
+const {check} =require('express-validator');
+
+
 // Controlador
 const usersControllers = require("../controllers/usersControllers");
 
@@ -10,8 +13,8 @@ const validateCampo = require("../middlewares/validarCampos");
 const validateForm = require("../middlewares/validateform");
 
 const validateID = require('../middlewares/validatorID');
+const validandoId = require('../helpers/db-validator')
 
-const validacionJWT = require('../middlewares/validar-jwt');
 
 //Rutas
 router.get("/", usersControllers.getAll);
@@ -22,6 +25,6 @@ router.put("/:id",validateID,validateCampo, usersControllers.editAll);
 
 router.patch("/", usersControllers.editFew);
 
-router.delete("/:id",validacionJWT,validateID,validateCampo, usersControllers.deleteAll);
+router.delete("/:id",[check('id','No es un Id valido').isMongoId(),check('id').custom(validandoId),validateCampo] , usersControllers.deleteAll);
 
 module.exports = router;

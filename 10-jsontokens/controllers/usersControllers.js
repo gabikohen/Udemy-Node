@@ -73,6 +73,9 @@ const usersControllers = {
     });
   },
 
+
+ 
+
   deleteAll: async (req, res = response) => {
     const { id } = req.params;
 
