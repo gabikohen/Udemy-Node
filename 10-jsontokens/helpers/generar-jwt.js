@@ -1,3 +1,5 @@
+// Funcion web token
+
 const jwt = require("jsonwebtoken");
 
 // uid Identificador de usuario

@@ -1,4 +1,4 @@
-// Validaciones
+/*  // Validaciones
 const { check } = require("express-validator");
 
 const {validacionUserID} = require('../helpers/db-validator')
@@ -10,3 +10,4 @@ const validarID = [
 ];
 
 module.exports = validarID;
+  */

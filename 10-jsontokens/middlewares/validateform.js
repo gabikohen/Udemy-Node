@@ -1,4 +1,4 @@
-
+/* 
 // Validaciones
 const  {body  }= require('express-validator')
 
@@ -26,3 +26,4 @@ const validarForm = [
 ];
 
 module.exports = validarForm;
+ */

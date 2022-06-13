@@ -1,4 +1,4 @@
- const { check } = require("express-validator");
+/*  const { check } = require("express-validator");
  const {existeUserID,esRolValido }= require('../helpers/db-validator');
 
 const editCampos = [
@@ -8,4 +8,4 @@ const editCampos = [
 ]
 
 
-module.exports = editCampos; 
+module.exports = editCampos;  */
