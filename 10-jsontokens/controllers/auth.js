@@ -1,10 +1,9 @@
 const { response } = require("express");
-
+// User model
+const Usuario = require("../models/usuario");
 // Encriptar password
 const bcryptjs = require("bcryptjs");
 
-// User model
-const Usuario = require("../models/usuario");
 
 const { generateJWT } = require("../helpers/generar-jwt");
 
@@ -12,6 +11,7 @@ const login = async (req, res = response) => {
   const { email, password } = req.body;
 
   try {
+    
     // Verificar si el email existe
 
     const usuario = await Usuario.findOne({ email });
@@ -51,7 +51,7 @@ const login = async (req, res = response) => {
   } catch (error) {
     console.log(error);
     return res.status(500).json({
-      msg: "Hable con el ADM",
+      msg: "Hable con el ADMINISTRADOR",
     });
   }
 

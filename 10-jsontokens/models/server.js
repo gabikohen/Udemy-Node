@@ -4,7 +4,7 @@ const { dbConnection } = require("../database/config");
 class Server {
   constructor() {
     this.app = express();
-    this.usersRouter = "/api/user";
+    this.usersRouter = "/api/usuario";
     this.authPath = "/api/auth";
     // Connectar Base de datos
 

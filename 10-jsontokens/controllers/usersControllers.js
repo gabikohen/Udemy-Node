@@ -79,12 +79,10 @@ const usersControllers = {
   deleteAll: async (req, res = response) => {
     const { id } = req.params;
 
-    /* Fisicamente se Borra  */
 
-    /* const user = await Usuario.findByIdAndDelete(id); */
     const user = await Usuario.findByIdAndUpdate(id, { state: false });
-
-    res.status(200).json(user);
+  
+    res.json(user);
   },
 };
 

@@ -10,8 +10,4 @@ router.post("/login",[
     body('password').notEmpty().withMessage('passwords do not match'),validarCamp],login);
 
 
-
- 
-
-
 module.exports = router;
